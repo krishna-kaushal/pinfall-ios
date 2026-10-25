@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Pinfall Rescue</title>
 <style>
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body { margin: 0; background: #14101d; color: #f3ead2; font-family: Georgia, 'Times New Roman', serif;
-    display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 12px 8px 32px; }
+    display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+    padding: max(12px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(32px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)); }
   h1 { margin: 4px 0 0; font-size: 30px; letter-spacing: 1px; color: #ffd23f; text-shadow: 0 2px 0 #000; }
   .sub { color: #b9aed1; font-size: 14px; margin: 2px 0 10px; text-align: center; max-width: 480px; }
   #bar { display: flex; gap: 8px; align-items: center; margin: 6px 0; flex-wrap: wrap; justify-content: center; }
@@ -870,13 +871,18 @@ function boot() {
     if (!soundOn) return;
     try {
       audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
       var o = audioCtx.createOscillator(), gn = audioCtx.createGain();
       o.type = type || 'sine'; o.frequency.value = f;
       gn.gain.setValueAtTime(0.08, audioCtx.currentTime);
       gn.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + d);
       o.connect(gn); gn.connect(audioCtx.destination);
       o.start(); o.stop(audioCtx.currentTime + d);
-    } catch (e) {}
+    } catch (e) {
+      console.warn('Audio beep error: ' + e);
+    }
   }
   function buildMenu() {
     menuEl.innerHTML = '';
@@ -900,6 +906,7 @@ function boot() {
   }
   function load(i) {
     cur = i; sim = buildGrid(LEVELS[i]); overShown = false;
+    console.log('Pinfall: Loaded Level ' + (i + 1) + ' — ' + LEVELS[i].name);
     levelName.textContent = 'Level ' + (i + 1) + ' — ' + LEVELS[i].name;
     overlay.classList.remove('show');
     statusEl.textContent = 'Gold in hero chamber: 0 / ' + WIN_GOLD;
@@ -910,6 +917,7 @@ function boot() {
   function finish() {
     if (overShown) return; overShown = true;
     if (sim.state === 'win') {
+      console.log('Pinfall: Level ' + (cur + 1) + ' Complete! Gold: ' + countGoldInChamber(sim));
       try { if (navigator.vibrate) navigator.vibrate([40, 40, 80]); } catch (e) {}
       try { if (typeof PinfallMusic !== 'undefined') PinfallMusic.playWin(); } catch (e) {}
       done[cur] = true;
@@ -920,6 +928,7 @@ function boot() {
         function () { load(cur < LEVELS.length - 1 ? cur + 1 : 0); });
       buildMenu();
     } else if (sim.state === 'fail') {
+      console.log('Pinfall: Level ' + (cur + 1) + ' Failed: ' + sim.cause);
       try { if (navigator.vibrate) navigator.vibrate(120); } catch (e) {}
       try { if (typeof PinfallMusic !== 'undefined') PinfallMusic.playFail(); } catch (e) {}
       beep(160, 0.3, 'sawtooth');
@@ -938,6 +947,7 @@ function boot() {
       var p = sim.pins[i];
       if (!p.pulled && gx >= p.x - 1 && gx < p.x + p.w + 1 && gy >= p.y - 1 && gy < p.y + 3) {
         if (pullPin(sim, i)) {
+          console.log('Pinfall: Pin ' + i + ' pulled on level ' + (cur + 1));
           beep(520, 0.08, 'triangle');
           try { if (navigator.vibrate) navigator.vibrate(12); } catch (e) {}
           var ph = document.getElementById('pinHint'); if (ph) ph.style.display = 'none';
