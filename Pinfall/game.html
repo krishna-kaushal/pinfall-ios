@@ -106,7 +106,7 @@
 <div style="color: #ffd23f; font-size: 16px; font-weight: bold; margin-top: 14px; text-align: center;">Select Level</div>
 <div id="menu"></div>
 <p id="hint"><b>How to play:</b> tap a metal pin to pull it out. Water cools lava (both vanish in steam).
-Poison kills goblins. Gold wins only when 30+ pieces reach the hero's chamber <i>and</i> the chamber
+Poison kills goblins. Poison turns water it touches into poison, and lava destroys gold it touches. Gold wins only when 30+ pieces reach the hero's chamber <i>and</i> the chamber
 is clear of goblins, lava and poison — some levels need gold from two pockets.
 Wrong pin? You'll find out fast. Retry is instant.<br>
 Original game, original art — no copied characters, names or assets.<br>
@@ -163,7 +163,7 @@ var LEVELS = [
     lava: [[6,26,20,2]], goblins: [[36,30]], lava2: [[6,44,48,2]],
     pins: [{y:18,x:8,w:10},{y:18,x:36,w:4},{y:18,x:46,w:10},{y:36,x:8,w:10},{y:36,x:36,w:6},{y:36,x:50,w:8},{y:54,x:50,w:8}] },
   { name: 'Two Lavas, Two Golds',
-    water: [[18,6,24,6]], lava: [[20,26,20,2]], gold: [[44,26,8,3]], lava2: [[20,44,32,2]], gold2: [[44,50,8,3]],
+    water: [[18,6,24,6]], lava: [[20,26,20,2]], gold: [[44,26,8,3]], walls: [[40,38,2,16]], lava2: [[20,44,20,2]], gold2: [[44,50,8,4]],
     pins: [{y:18,x:25,w:10},{y:36,x:25,w:10},{y:36,x:44,w:10},{y:54,x:25,w:10},{y:54,x:44,w:10}] },
   { name: 'Gauntlet',
     walls: [[20,4,2,14],[40,4,2,14],[20,20,2,16],[40,20,2,16]],
@@ -171,8 +171,8 @@ var LEVELS = [
     pins: [{y:18,x:26,w:10},{y:18,x:44,w:14},{y:36,x:26,w:10},{y:36,x:44,w:14},{y:54,x:44,w:14}] },
   { name: 'Mirror Triple',
     walls: [[20,4,2,14],[40,4,2,14],[16,20,2,16],[30,20,2,16]],
-    gold: [[6,6,12,4]], water: [[8,10,8,5]], poison: [[24,6,12,5]],
-    goblins: [[22,30]], lava: [[8,44,14,2]],
+    gold: [[6,4,12,6]], water: [[8,10,8,5]], poison: [[24,6,12,5]],
+    goblins: [[22,30]], lava: [[20,44,6,2]],
     pins: [{y:18,x:8,w:10},{y:18,x:22,w:6},{y:36,x:4,w:12},{y:36,x:22,w:6},{y:54,x:8,w:10}] },
   { name: 'Final Exam',
     walls: [[20,4,2,14],[40,4,2,14],[30,20,2,16],[44,20,2,16]],
@@ -351,6 +351,28 @@ function stepSim(sim) {
       }
     }
   }
+  /* new mechanics: poison contaminates water, lava destroys gold.
+     Contact means orthogonally adjacent (same definition as the water+lava
+     pass above). Both apply simultaneously, so contamination spreads one
+     cell per tick instead of cascading in scan order. */
+  var contaminate = [], melt = [];
+  for (var iy = 0; iy < GH; iy++) {
+    for (var ix = 0; ix < GW; ix++) {
+      var cc = at(g, ix, iy);
+      if (cc === WATER) {
+        if ((ix > 0 && at(g, ix - 1, iy) === POISON) || (ix < GW - 1 && at(g, ix + 1, iy) === POISON) ||
+            (iy > 0 && at(g, ix, iy - 1) === POISON) || (iy < GH - 1 && at(g, ix, iy + 1) === POISON)) contaminate.push([ix, iy]);
+      } else if (cc === GOLD) {
+        if ((ix > 0 && at(g, ix - 1, iy) === LAVA) || (ix < GW - 1 && at(g, ix + 1, iy) === LAVA) ||
+            (iy > 0 && at(g, ix, iy - 1) === LAVA) || (iy < GH - 1 && at(g, ix, iy + 1) === LAVA)) melt.push([ix, iy]);
+      }
+    }
+  }
+  contaminate.forEach(function (q) { set(g, q[0], q[1], POISON); });
+  melt.forEach(function (q) {
+    set(g, q[0], q[1], EMPTY);
+    if (sim.steam.length < 200) sim.steam.push({ x: q[0] * CELL + 4, y: q[1] * CELL + 4, life: 1 });
+  });
   /* goblins: poison or lava touch kills; otherwise gravity, then patrol */
   if (tick % 3 === 0) {
     sim.goblins.forEach(function (gb) {
