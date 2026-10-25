@@ -1,0 +1,103 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		100000000000000000000030 /* GameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000010 /* GameApp.swift */; };
+		100000000000000000000031 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000011 /* ContentView.swift */; };
+		100000000000000000000032 /* game.html in Resources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000012 /* game.html */; };
+		100000000000000000000033 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000013 /* Assets.xcassets */; };
+		100000000000000000000034 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000014 /* LaunchScreen.storyboard */; };
+		100000000000000000000035 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 100000000000000000000016 /* WebKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		100000000000000000000010 /* GameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameApp.swift; sourceTree = "<group>"; };
+		100000000000000000000011 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		100000000000000000000012 /* game.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = game.html; sourceTree = "<group>"; };
+		100000000000000000000013 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		100000000000000000000014 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		100000000000000000000015 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		100000000000000000000016 /* WebKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		100000000000000000000017 /* Pinfall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pinfall.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		100000000000000000000022 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (
+			100000000000000000000035 /* WebKit.framework in Frameworks */,
+		); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		100000000000000000000003 /* Pinfall */ = {isa = PBXGroup; children = (
+			100000000000000000000010 /* GameApp.swift */,
+			100000000000000000000011 /* ContentView.swift */,
+			100000000000000000000012 /* game.html */,
+			100000000000000000000013 /* Assets.xcassets */,
+			100000000000000000000014 /* LaunchScreen.storyboard */,
+			100000000000000000000015 /* Info.plist */,
+		); path = Pinfall; sourceTree = "<group>"; };
+		100000000000000000000004 /* Products */ = {isa = PBXGroup; children = (
+			100000000000000000000017 /* Pinfall.app */,
+		); name = Products; sourceTree = "<group>"; };
+		100000000000000000000005 = {isa = PBXGroup; children = (
+			100000000000000000000003 /* Pinfall */,
+			100000000000000000000004 /* Products */,
+		); sourceTree = "<group>"; };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		100000000000000000000002 /* Pinfall */ = {isa = PBXNativeTarget; buildConfigurationList = 100000000000000000000041 /* Build configuration list for PBXNativeTarget "Pinfall" */; buildPhases = (
+			100000000000000000000020 /* Sources */,
+			100000000000000000000022 /* Frameworks */,
+			100000000000000000000021 /* Resources */,
+		); buildRules = (
+		); dependencies = (
+		); name = Pinfall; productName = Pinfall; productReference = 100000000000000000000017 /* Pinfall.app */; productType = "com.apple.product-type.application"; };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		100000000000000000000001 /* Project object */ = {isa = PBXProject; attributes = { BuildIndependentTargetsInParallel = 1; LastSwiftUpdateCheck = 1420; LastUpgradeCheck = 1420; TargetAttributes = { 100000000000000000000002 /* Pinfall */ = { CreatedOnToolsVersion = 14.2; }; }; }; buildConfigurationList = 100000000000000000000040 /* Build configuration list for PBXProject "Pinfall" */; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = ( en, Base, ); mainGroup = 100000000000000000000005; productRefGroup = 100000000000000000000004 /* Products */; projectDirPath = ""; projectRoot = ""; targets = (
+			100000000000000000000002 /* Pinfall */,
+		); };
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		100000000000000000000021 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (
+			100000000000000000000032 /* game.html in Resources */,
+			100000000000000000000033 /* Assets.xcassets in Resources */,
+			100000000000000000000034 /* LaunchScreen.storyboard in Resources */,
+		); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		100000000000000000000020 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (
+			100000000000000000000030 /* GameApp.swift in Sources */,
+			100000000000000000000031 /* ContentView.swift in Sources */,
+		); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		100000000000000000000042 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = { ALWAYS_SEARCH_USER_PATHS = NO; DEBUG_INFORMATION_FORMAT = dwarf; IPHONEOS_DEPLOYMENT_TARGET = 16.0; SWIFT_VERSION = 5.0; }; name = Debug; };
+		100000000000000000000043 /* Release */ = {isa = XCBuildConfiguration; buildSettings = { ALWAYS_SEARCH_USER_PATHS = NO; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; IPHONEOS_DEPLOYMENT_TARGET = 16.0; SWIFT_VERSION = 5.0; }; name = Release; };
+		100000000000000000000044 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = { ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; DEBUG_INFORMATION_FORMAT = dwarf; ENABLE_TESTABILITY = YES; INFOPLIST_FILE = Pinfall/Info.plist; LD_RUNPATH_SEARCH_PATHS = ( "$(inherited)", "@executable_path/Frameworks", ); MARKETING_VERSION = 1.0; PRODUCT_BUNDLE_IDENTIFIER = com.pinfall.rescue; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_EMBED_LIBRARIES_WITH_SWIFT = YES; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; TARGETED_DEVICE_FAMILY = "1,2"; }; name = Debug; };
+		100000000000000000000045 /* Release */ = {isa = XCBuildConfiguration; buildSettings = { ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; INFOPLIST_FILE = Pinfall/Info.plist; LD_RUNPATH_SEARCH_PATHS = ( "$(inherited)", "@executable_path/Frameworks", ); MARKETING_VERSION = 1.0; PRODUCT_BUNDLE_IDENTIFIER = com.pinfall.rescue; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_EMBED_LIBRARIES_WITH_SWIFT = YES; SWIFT_OPTIMIZATION_LEVEL = "-O"; TARGETED_DEVICE_FAMILY = "1,2"; }; name = Release; };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		100000000000000000000040 /* Build configuration list for PBXProject "Pinfall" */ = {isa = XCConfigurationList; buildConfigurations = (
+			100000000000000000000042 /* Debug */,
+			100000000000000000000043 /* Release */,
+		); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		100000000000000000000041 /* Build configuration list for PBXNativeTarget "Pinfall" */ = {isa = XCConfigurationList; buildConfigurations = (
+			100000000000000000000044 /* Debug */,
+			100000000000000000000045 /* Release */,
+		); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+	};
+	rootObject = 100000000000000000000001 /* Project object */;
+}
