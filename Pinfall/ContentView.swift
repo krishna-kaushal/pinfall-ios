@@ -90,8 +90,8 @@ struct GameWebView: UIViewRepresentable {
 
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = context.coordinator
-        webView.scrollView.bounces = false
-        webView.scrollView.isScrollEnabled = false
+        webView.scrollView.bounces = true
+        webView.scrollView.isScrollEnabled = true
         webView.isOpaque = false
         webView.backgroundColor = UIColor(red: 0.08, green: 0.06, blue: 0.11, alpha: 1.0)
 
